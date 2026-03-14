@@ -16,7 +16,8 @@
       { "command": "logwatch.openDashboard", "title": "Open Dashboard", "category": "logwatch", "icon": "$(browser)" },
       { "command": "logwatch.clearAlerts",   "title": "Clear Alerts",   "category": "logwatch", "icon": "$(trash)" },
       { "command": "logwatch.copyMessage",   "title": "Copy Message",   "category": "logwatch" },
-      { "command": "logwatch.copyRaw",       "title": "Copy Raw Line",  "category": "logwatch" }
+      { "command": "logwatch.copyRaw",        "title": "Copy Raw Line",  "category": "logwatch" },
+      { "command": "logwatch.showDetail",    "title": "View Details",   "category": "logwatch", "icon": "$(open-preview)" }
     ],
     "viewsContainers": {
       "activitybar": [
@@ -40,8 +41,9 @@
         { "command": "logwatch.clearAlerts",   "when": "view == logwatch.alerts", "group": "navigation@4" }
       ],
       "view/item/context": [
-        { "command": "logwatch.copyMessage", "when": "viewItem == alert", "group": "logwatch@1" },
-        { "command": "logwatch.copyRaw",     "when": "viewItem == alert", "group": "logwatch@2" }
+        { "command": "logwatch.showDetail",  "when": "viewItem == alert", "group": "logwatch@1" },
+        { "command": "logwatch.copyMessage", "when": "viewItem == alert", "group": "logwatch@2" },
+        { "command": "logwatch.copyRaw",     "when": "viewItem == alert", "group": "logwatch@3" }
       ]
     },
     "configuration": {

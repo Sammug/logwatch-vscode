@@ -5,6 +5,7 @@ import { SSEClient } from './sseClient';
 import { AlertProvider, AlertItem } from './alertProvider';
 import { LogwatchStatusBar } from './statusBar';
 import { DashboardPanel } from './dashboardPanel';
+import { AlertDetailPanel } from './alertDetailPanel';
 import { Alert } from './types';
 
 let sse:        SSEClient          | undefined;
@@ -79,6 +80,12 @@ export function activate(context: vscode.ExtensionContext): void {
         vscode.commands.registerCommand('logwatch.clearAlerts', () => {
             provider?.clear();
             statusBar?.setRunning(0, 0);
+        }),
+
+        vscode.commands.registerCommand('logwatch.showDetail', (item?: AlertItem) => {
+            if (item?.alert) {
+                AlertDetailPanel.show(item.alert, context.extensionUri);
+            }
         }),
 
         vscode.commands.registerCommand('logwatch.copyMessage', async (item?: AlertItem) => {

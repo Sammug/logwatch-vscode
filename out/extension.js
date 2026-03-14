@@ -42,6 +42,7 @@ const sseClient_1 = require("./sseClient");
 const alertProvider_1 = require("./alertProvider");
 const statusBar_1 = require("./statusBar");
 const dashboardPanel_1 = require("./dashboardPanel");
+const alertDetailPanel_1 = require("./alertDetailPanel");
 let sse;
 let provider;
 let statusBar;
@@ -98,6 +99,10 @@ function activate(context) {
     }), vscode.commands.registerCommand('logwatch.clearAlerts', () => {
         provider?.clear();
         statusBar?.setRunning(0, 0);
+    }), vscode.commands.registerCommand('logwatch.showDetail', (item) => {
+        if (item?.alert) {
+            alertDetailPanel_1.AlertDetailPanel.show(item.alert, context.extensionUri);
+        }
     }), vscode.commands.registerCommand('logwatch.copyMessage', async (item) => {
         const text = item?.alert?.message;
         if (text) {

@@ -56,10 +56,10 @@ class AlertItem extends vscode.TreeItem {
         this.iconPath = SEV_ICON[alert.severity] ?? SEV_ICON['INFO'];
         this.description = `[${alert.rule}]  ${fmtTime(alert.time)}`;
         this.tooltip = buildTooltip(alert);
-        // Click → copy raw line to clipboard
+        // Click → open detail panel
         this.command = {
-            command: 'logwatch.copyRaw',
-            title: 'Copy Raw Line',
+            command: 'logwatch.showDetail',
+            title: 'Show Alert Detail',
             arguments: [this]
         };
     }
