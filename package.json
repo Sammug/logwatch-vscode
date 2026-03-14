@@ -1,0 +1,88 @@
+{
+  "name": "logwatch",
+  "displayName": "logwatch",
+  "description": "Real-time log parsing and alerting inside VS Code",
+  "version": "0.1.0",
+  "publisher": "sammug",
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Debuggers", "Other"],
+  "icon": "media/icon.png",
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "logwatch.start",         "title": "Start",          "category": "logwatch", "icon": "$(play)" },
+      { "command": "logwatch.stop",          "title": "Stop",           "category": "logwatch", "icon": "$(stop)" },
+      { "command": "logwatch.openDashboard", "title": "Open Dashboard", "category": "logwatch", "icon": "$(browser)" },
+      { "command": "logwatch.clearAlerts",   "title": "Clear Alerts",   "category": "logwatch", "icon": "$(trash)" },
+      { "command": "logwatch.copyMessage",   "title": "Copy Message",   "category": "logwatch" },
+      { "command": "logwatch.copyRaw",       "title": "Copy Raw Line",  "category": "logwatch" }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "logwatch",
+          "title": "logwatch",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "logwatch": [
+        { "id": "logwatch.alerts", "name": "Alerts", "icon": "media/icon.svg" }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        { "command": "logwatch.start",         "when": "view == logwatch.alerts", "group": "navigation@1" },
+        { "command": "logwatch.stop",          "when": "view == logwatch.alerts", "group": "navigation@2" },
+        { "command": "logwatch.openDashboard", "when": "view == logwatch.alerts", "group": "navigation@3" },
+        { "command": "logwatch.clearAlerts",   "when": "view == logwatch.alerts", "group": "navigation@4" }
+      ],
+      "view/item/context": [
+        { "command": "logwatch.copyMessage", "when": "viewItem == alert", "group": "logwatch@1" },
+        { "command": "logwatch.copyRaw",     "when": "viewItem == alert", "group": "logwatch@2" }
+      ]
+    },
+    "configuration": {
+      "title": "logwatch",
+      "properties": {
+        "logwatch.executablePath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to the logwatch binary (leave empty to auto-detect)"
+        },
+        "logwatch.configPath": {
+          "type": "string",
+          "default": "",
+          "description": "Path to logwatch config .ini file"
+        },
+        "logwatch.dashboardPort": {
+          "type": "number",
+          "default": 9090,
+          "description": "Port for the logwatch web dashboard"
+        },
+        "logwatch.autoStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically start logwatch when a workspace is opened"
+        },
+        "logwatch.maxAlerts": {
+          "type": "number",
+          "default": 200,
+          "description": "Maximum number of alerts to keep in the panel"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch":   "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node":   "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript":    "^5.3.0"
+  }
+}
